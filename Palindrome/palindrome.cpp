@@ -25,13 +25,21 @@ int main()
   // this will remove any spaces or punctuation
   // for every char in the input
   for (int i =0; i < strlen(input); i++) {
-    if ((input[i] >= 'A' && input[i] <= 'Z') || (input[i] >= 'a' && input[1] <= 'z')) {
+    if ((input[i] >= 'A' && input[i] <= 'Z') || (input[i] >= 'a' && input[i] <= 'z')) {
+      // if uppercase, it will convert to lowercase
+      if (input[i] >= 'A' && input[i] <= 'Z'){
       // add them to input2
-      input2[count] = input[i];
-      count ++;
+      input2[count] = input[i] + ('a' - 'A');
     }
-  }
+    else{
+      input2[count] = input[i];
+    }
 
+    count++;
+     
+  }
+  }
+  
   // len variable
   int input2len = strlen(input2);
 
@@ -42,8 +50,8 @@ int main()
 
   }
 
-  cout << input2 <<endl;
-  cout << input3 << endl;
+  //cout << input2 <<endl;
+  //cout << input3 << endl;
 
   
   //This checks if the user input is a palindrome 
