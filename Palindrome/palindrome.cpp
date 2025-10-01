@@ -12,14 +12,13 @@ using namespace std;
 
 int main()
 {
-  char input[80];
-  char input2[80];
-  char input3[80];
+  char input[81];
+  char input2[81];
+  char input3[81];
   int count = 0;
 
   // user input
-  cin.get(input, 80);
-
+  cin.get(input, 81);
 
 
   // this will remove any spaces or punctuation
