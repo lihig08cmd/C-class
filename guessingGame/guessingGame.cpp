@@ -27,7 +27,7 @@ int main()
       int attepts = 0;
 
       // get diffrent random numbers everytime the program runs
-      srand(time(NULL));
+      srand(time(0));
       // generate random number between 0 and 100 (includeing 1 and 100)
       int randNum = rand() % 101;
 
