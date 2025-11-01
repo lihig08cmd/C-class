@@ -3,7 +3,7 @@
   kjfbeugeugeg
 
   Lihi Gavrielov
-  10/  /25     */
+  10/31/25     */
 
 #include <iostream>
 #include <cstring>
@@ -19,15 +19,13 @@ struct Students {
 };
 
 // functions prototype
-void add(vertax<Students*>students);
-void print(vertax<Students*>students);
-void delete_fun(vertax<Students*>students);
-void quit(vertax<Students*>students);
-
+void add(vector<Students*>& students);
+void print(vector<Students*>& students);
+void delete_fun(vector<Students*>& students);
 
 int main(){
   //vercor of students
-  vertax<Students*> students;
+  vector<Students*> students;
   
   while(true){
     // user input
@@ -36,25 +34,24 @@ int main(){
     cin >> input;
 
     // call the add function
-    if(input == "Add"){
+    if(strcmp(input, "Add") == 0 || strcmp(input, "add") == 0){
       add(students);
     }
     //call the print function
-    else if(input =="Print"){
+    else if(strcmp(input, "Print") ==0 || strcmp(input, "print") == 0){
       print(students);
     }
     // call the delete function
-    else if(input == "Delete"){
-      delete_Fun(students);
+    else if(strcmp(input, "Delete") == 0|| strcmp(input, "delete") == 0){
+      delete_fun(students);
 	}
     // call the quit function
-    else if(input == "Quit"){
+    else if(strcmp(input, "Quit") == 0 || strcmp(input, "quit") ==0 ){
       cout << "Bye!!" << endl;
-      // quit the progrem and delete all the students
+      return 0;
     }
     else{
-      cout << "Try again. Enter either Add, Print, Delete, or Quit: ";
-      cin >> input;
+      cout << "Try again." << endl;
     }
 
   }
@@ -62,41 +59,66 @@ int main(){
 }
 
 
+// add a new student to the vector
+void add(vector<Students*>& students){
+  cout << "Adding a new student" << endl;
 
-void add(){
-  // add another student to the students struct
+  // 
   Students* addNewS = new Students();
 
+  // asks the user for info on the new student
   cout <<"Enter first name: ";
-  cin >> addNewS.firstName;
+  cin >> addNewS->firstName;
 
   cout <<"Enter last name: ";
+  cin >> addNewS->lastName;
 
   cout<< "Enter student ID: ";
-
+  cin >> addNewS -> id;
+  
   cout << "Enter student GPA: ";
-  student.push_back(addNewS);
+  cin >> addNewS -> gpa;
+
+  // adding the new student to teh vector
+  students.push_back(addNewS);
+
+  cout <<"Added the new student!!!" << endl;
 
 }
 
-void print(){
-  // print out everything that is in the struct
+void print(vector<Students*>& students){
+  //check if there is students
   if (students.empty()){
-    cout <<"No students";
+    cout <<"No students" << endl;
+    return;
   }
 
   //print all the students and their info (GPA only with 2 decimals)
-  for (...)
-    // for every studetn print their info
   
+  for (Students* student: students) {
+    cout << student->firstName<< ' ' << student->lastName << ", "<< student -> id << ", " << student ->gpa << endl;
+  }
 }
+void delete_fun(vector<Students*>& students){
+  // check if there are any students
+  if(students.empty()){
+    cout <<"No students to delete" << endl;
+    return;
+  }
 
-void delete_fun(){
-  // ask for the id then delete from struct
+  // asking the user for the ID to delete
+  int deleteID;
+  cout <<"Enter students ID to delete: ";
+  cin >> deleteID;
 
-}
-
-void quit(){
-  // quit and exit
+  // looking for the student using the ID
+  for (auto it = students.begin(); it != students.end(); it++){
+    if ((*it) ->id == deleteID){
+      //delete it
+      students.erase(it);
+      cout<< "Student deleted" << endl;
+      return;
+    }
+  }
 
 }
