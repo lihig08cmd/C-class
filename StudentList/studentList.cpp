@@ -3,11 +3,12 @@
   kjfbeugeugeg
 
   Lihi Gavrielov
-  10/31/25     */
+  11/3/25     */
 
 #include <iostream>
 #include <cstring>
 #include <vector>
+#include <iomanip>
 using namespace std;
 
 // defining the struct  
@@ -96,7 +97,7 @@ void print(vector<Students*>& students){
   //print all the students and their info (GPA only with 2 decimals)
   
   for (Students* student: students) {
-    cout << student->firstName<< ' ' << student->lastName << ", "<< student -> id << ", " << student ->gpa << endl;
+    cout << student->firstName<< ' ' << student->lastName << ", "<< student -> id << ", " << fixed << setprecision(2) << student ->gpa << endl;
   }
 }
 void delete_fun(vector<Students*>& students){
