@@ -1,6 +1,5 @@
 /*
   Student List
-  kjfbeugeugeg
 
   Lihi Gavrielov
   11/3/25     */
@@ -116,6 +115,7 @@ void delete_fun(vector<Students*>& students){
   for (auto it = students.begin(); it != students.end(); it++){
     if ((*it) ->id == deleteID){
       //delete it
+      delete *it;
       students.erase(it);
       cout<< "Student deleted" << endl;
       return;
