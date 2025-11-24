@@ -5,28 +5,31 @@
 #include "videoGames.h"
 using namespace std;
 
+// default constractor
 videoGames:: videoGames():digitalmedia() {
-  cout<< "IN THE VIDEOGAMES -  constractor default" << endl;
+}
+// destructor
+videoGames:: ~videoGames(){
 }
 
-//videoGames:: videoGames(int year_in):digitalmedia(year_in) {
+// passes title and year and sets publisher and rating
 videoGames:: videoGames(char* title_in,int year_in, char* publisher_in, float rating_in):digitalmedia(title_in ,year_in) {
-  cout<< "IN THE VIDEOGAMES -  constractor" << endl;
   rating = rating_in;
   strcpy(publisher,publisher_in);
 }
 
 float videoGames::getRating(){
-  cout << " In videoGAme.cpp - getRATING" << endl;
+  //cout << " In videoGAme.cpp - getRATING" << endl;
   return rating;
 
 }
 
 char* videoGames::getPublisher(){
-  cout<< "In videoGAmes.cpp  -   getPublishee" << endl;
+  //cout<< "In videoGAmes.cpp  -   getPublishee" << endl;
   return publisher;
 }
 
+// prints all video game info
 void videoGames::print(){
   cout << "Video Games" << endl;
   cout << "Title: " << title << endl;
