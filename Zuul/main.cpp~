@@ -1,0 +1,27 @@
+/* this is main class for the game zuul.
+
+   Lihi Gavrielov
+   12/ /25      */
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+// include all the other classes
+
+
+
+// include function prototype
+
+
+
+
+int main(){
+
+  
+
+
+
+
+
+
+}

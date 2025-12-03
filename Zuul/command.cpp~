@@ -1,0 +1,19 @@
+/* this is command .cpp    */
+
+#include <iostream>
+#include <iostream>
+#include "command.h"
+using namespace std;
+
+//defult constractor
+command::command(){
+
+}
+
+command::command(char commandWord, char secondWord){
+
+}
+
+command::getCommandWord(){
+
+}
