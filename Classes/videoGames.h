@@ -7,11 +7,16 @@ using namespace std;
 
 class videoGames : public digitalmedia {
  public :
+  // default constractor
   videoGames();
-  //videoGames(int year_in);
+  // destractor
+  ~videoGames();
+
+  //constractor that sets title, year, publisher, and rating
   videoGames(char* title_in,int year_in, char* publisher_in, float rating_in);
   float getRating();
   char* getPublisher();
+  
   void print();
 protected:
   char publisher[80];

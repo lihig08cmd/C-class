@@ -7,16 +7,23 @@ using namespace std;
 
 class music: public digitalmedia{
  public:
+  //default constractor
   music();
-  music(char* title_in, int year_in, char* artist_in, float duration_in, char* publisher_in);
+  //destractor
+  ~music();
+
+  music(char* title_in, int year_in, char* artist_in, double duration_in, char* publisher_in);
   char* getArtist();
-  float getDuration();
+  double getDuration();
   char* getPublisher();
+
+  // prints music the info
   void print();
 
 private:
   char artist[80];
-  float duration;
+  // how long the song is
+  double duration;
   char publisher[80];
   
 };
