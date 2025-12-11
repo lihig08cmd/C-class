@@ -10,9 +10,7 @@ using namespace std;
 class command {
  public:
   command();
-  // not sure if I need virtual
-
-  command(char* command_word, char* second_word);
+  command(char* first[], char* second[]);
   char commandWord[80];
   char secondWord[80];
 

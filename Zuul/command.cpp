@@ -7,27 +7,28 @@ using namespace std;
 
 //defult constractor
 command::command(){
+  commandWord[0] = '\0';
+  secondWord[0] = '\0';
+}
+
+command::command(char* first[], char* second[]){
+  strcpy(commandWord, first);
+  strcpy(secondWord, second);
 
 }
 
-command::command(char* command_word, char* second_word){
-  strcpy(commandWord, command_word);
-  strcpy(secondWord, second_word);
-
-}
-
-command::getCommandWord(){
+char* command::getCommandWord(){
   return commandWord;
 }
 
-command::getSecondWord(){
+char* command::getSecondWord(){
   return secondWord;
 }
 
-command::isUnKnown(){
-  return (commandWord == NULL);
+bool command::isUnKnown(){
+  return (commandWord[0] == '\0');
 }
 
-command::hasSecondWord(){
-  return (secondWord == NULL);
+bool command::hasSecondWord(){
+  return (secondWord[0] == '\0');
 }

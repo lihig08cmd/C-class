@@ -9,7 +9,8 @@
 #include <cstring>
 using namespace std;
 // include all the other classes
-
+#include "command.h"
+#include "commandWords"
 
 
 // include function prototype
