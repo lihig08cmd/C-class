@@ -16,7 +16,7 @@ class Node{
 
  public:
   //Constructor
-  Node(Student*);
+  Node(Student* newStudent);
 
   //destructor
   ~Node();
@@ -28,7 +28,6 @@ class Node{
   Student* getStudent();
 
   //set the next Node pointer
-  void setNext(Node*);
-
+  void setNext(Node* newNext);
 };
 #endif
