@@ -13,7 +13,7 @@ class Student{
   int id;
 
  public:
-  Student();
+  Student(char* newName, int newId);
   void print();
 
 };

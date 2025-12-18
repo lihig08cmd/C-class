@@ -5,8 +5,9 @@
 #include "Student.h"
 using namespace std;
 
-Student::Student(){
-
+Student::Student(char* newName, int newId){
+  strcpy(name, newName);
+  id = newId;
 }
 
 void Student::print(){

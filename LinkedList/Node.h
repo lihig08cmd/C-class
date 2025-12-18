@@ -1,4 +1,10 @@
-// this is Node .h  //
+/* this is Node .h
+   Linked list
+
+   Lihi Gavrielov
+   12/18/25
+ */
+
 
 #ifndef NODE_H
 #define NODE_H
@@ -14,7 +20,6 @@ class Node{
   Student* student;
   // pointer to next Node
   Node* next;
-
 
  public:
   //Constructor
