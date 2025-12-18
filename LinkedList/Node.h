@@ -29,7 +29,7 @@ class Node{
   ~Node();
 
   // get next Node pointer
-  Node* getNext():
+  Node* getNext();
 
   //get student pointer
   Student* getStudent();
