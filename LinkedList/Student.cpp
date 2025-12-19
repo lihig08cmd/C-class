@@ -5,7 +5,7 @@
 #include "Student.h"
 using namespace std;
 
-Student::Student(char* newName, int newId){
+Student::Student(const char* newName, int newId){
   strcpy(name, newName);
   id = newId;
 }
