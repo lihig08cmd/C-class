@@ -10,13 +10,12 @@ using namespace std;
 class item{
  public:
   item();
-  item()
+  item(char desc[]);
+
+  char description[80];
+
+  char* getDescription();
   
-
-
-
-
-
 
 };
 #endif
