@@ -3,15 +3,17 @@
    my code is based on the python zuul code from last year.
 
    Lihi Gavrielov
-   12/ /25      */
+   1/ /26      */
 
 #include <iostream>
 #include <cstring>
 using namespace std;
 // include all the other classes
+#include "parser.h"
 #include "command.h"
-#include "commandWords"
-
+#include "commandWords.h"
+#include "room.h"
+#include "item.h"
 
 // include function prototype
 
