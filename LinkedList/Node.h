@@ -1,4 +1,4 @@
-/* this is Node .h
+/* this is Node.h
    Linked list
 
    Lihi Gavrielov

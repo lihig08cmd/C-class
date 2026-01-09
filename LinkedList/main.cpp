@@ -33,6 +33,11 @@ int main(){
     cout << "Next one exists." << endl;
   }
 
+  delete stu1;
+  delete stu2;
+  delete n1;
+  delete n2;
+
   return 0;
   
 }

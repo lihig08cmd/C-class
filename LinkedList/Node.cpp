@@ -14,6 +14,7 @@ Node::Node(Student* newStudent){
 
 // destructor
 Node::~Node(){
+  delete student;
 }
 
 // get next node
