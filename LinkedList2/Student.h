@@ -3,6 +3,10 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
+#include <iostream>
+#include <cstring>
+using namespace std;
+
 class Student{
  private:
   char first[80];
@@ -11,7 +15,7 @@ class Student{
   float gpa;
 
  public:
-  Student();
+  Student(char* f, char* l , int i, float g);
 
   int getID();
   float getGPA();
