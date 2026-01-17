@@ -18,3 +18,7 @@ int Student::getID(){
 float Student::getGPA(){
   return gpa;
 }
+
+void Student::print(){
+  cout << first<< ' ' << last<< ", "<< id << ", " << fixed << setprecision(2) << gpa << endl;
+}
