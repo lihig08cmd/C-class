@@ -9,8 +9,8 @@ using namespace std;
 Student::Student(char* f, char* l, int i, float g){
   strcpy(first,f);
   strcpy(last, l);
-  int id = i;
-  float gpa = g;
+  id = i;
+  gpa = g;
 }
 
 int Student::getID(){

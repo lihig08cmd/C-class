@@ -13,7 +13,7 @@ using namespace std;
 Node* createStudent();
 Node* insertStudent(Node* current, Node* s);
 void print(Node* current);
-void deleteStudent(Node* n);
+Node* deleteStudent(Node* current, int id);
 
 
 int main(){
@@ -43,7 +43,10 @@ int main(){
     // if delete
     else if (strcmp(input, "DELETE")==0){
       cout << "delete" << endl;
-      
+      int deleteID;
+      cout << "Enter student ID to delete: " << endl;
+      cin >> deleteID;
+      deleteStudent(head,deleteID);
     }
 
     // if avrege
@@ -111,20 +114,22 @@ void print(Node* current){
   
 }
 
-
-/*
-void deleteStudent(Node* n){
-  int deleteID;
-  cout << "Enter student ID to delete: " << endl;
-  cin >> deleteID;
-
-  for (i=0; i < n->getStudent(); i++){
-    if (n->getStudent()->getID() == deleteID){
-      delete s;
-      delete n;
-    }
+// Prompt the user for the student id number to delete
+Node* deleteStudent(Node* current, int id){
+  if(current == NULL){
+    return current;
   }
+
+  if (current->getStudent()->getID() == id){
+    Node* temp = current;
+    delete current;
+    return temp->getNext();
+    
+  }
+
+  current->setNext(deleteStudent(current->getNext(), id));
+  return current;
 }
 
 //void average(
-*/
+
