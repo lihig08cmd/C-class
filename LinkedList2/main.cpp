@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <iomanip>
 #include "Node.h"
 #include "Student.h"
 using namespace std;
@@ -14,7 +15,8 @@ Node* createStudent();
 Node* insertStudent(Node* current, Node* s);
 void print(Node* current);
 Node* deleteStudent(Node* current, int id);
-
+int countNodes(Node* current);
+float sumGPA(Node* current);
 
 int main(){
 
@@ -46,13 +48,21 @@ int main(){
       int deleteID;
       cout << "Enter student ID to delete: " << endl;
       cin >> deleteID;
-      deleteStudent(head,deleteID);
+      head = deleteStudent(head,deleteID);
     }
 
     // if avrege
     else if (strcmp(input, "AVERAGE") ==0){
-      int count = 0;
-      cout << "AVREGE" << endl; 
+      if(head == NULL){
+	cout << "No students in list" << endl;
+      }
+      else{
+	int count = countNodes(head);
+	float sum = sumGPA(head);
+
+	cout << "Average GPA: " << fixed << setprecision(2) << (sum/count) << endl;
+      }
+      
     }
     
     else if (strcmp(input, "QUIT")==0){
@@ -121,9 +131,9 @@ Node* deleteStudent(Node* current, int id){
   }
 
   if (current->getStudent()->getID() == id){
-    Node* temp = current;
+    Node* temp = current->getNext();
     delete current;
-    return temp->getNext();
+    return temp;
     
   }
 
@@ -131,5 +141,21 @@ Node* deleteStudent(Node* current, int id){
   return current;
 }
 
-//void average(
+int countNodes(Node* current){
+  if (current==NULL){
+    return 0;
+  }
+
+  return 1 + countNodes(current->getNext());
+}
+
+float sumGPA(Node* current){
+
+  if (current==NULL){
+    return 0;
+  }
+
+  return current->getStudent()->getGPA() + sumGPA(current->getNext());
+}
+
 
