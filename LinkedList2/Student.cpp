@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <cstring>
+#include <iomanip>
+#include "Student.h"
 using namespace std;
 
 Student::Student(char* f, char* l, int i, float g){

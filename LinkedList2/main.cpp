@@ -9,9 +9,10 @@
 #include "Student.h"
 using namespace std;
 
-// function prototypy
-void addStudent();
-void print(Node* n);
+// function prototype
+Node* createStudent();
+Node* insertStudent(Node* current, Node* s);
+void print(Node* current);
 void deleteStudent(Node* n);
 
 
@@ -30,27 +31,25 @@ int main(){
 
     // if add
     if (strcmp(input, "ADD") == 0){
-      add();
+      Node* newStudent = createStudent();
+      head = insertStudent(head,newStudent);
     }
 
     // if print
     else if (strcmp(input, "PRINT") ==0){
-      print(Node* n);
+      print(head);
     }
 
     // if delete
     else if (strcmp(input, "DELETE")==0){
-      int id;
-      cout << "Enter ID to delete: " << endl;
-      cin >> id;
-
-      // remove the student
+      cout << "delete" << endl;
       
     }
 
     // if avrege
-    else if (strmpy(input, "AVERAGE") ==0){
+    else if (strcmp(input, "AVERAGE") ==0){
       int count = 0;
+      cout << "AVREGE" << endl; 
     }
     
     else if (strcmp(input, "QUIT")==0){
@@ -61,7 +60,7 @@ int main(){
 }
 
 // add function
-void addStudent(){
+Node* createStudent(){
   char first[80];
   char last [80];
   int id;
@@ -86,10 +85,46 @@ void addStudent(){
   return n;
 }
 
-// print function
-void print(Node* n){
-  // check if these are students
-  
+// insert a new node into your linked list, sorting it by student id number  
+Node* insertStudent(Node* current, Node* s){
+  //if current is NuLL or student ID # higher then the current ID #
+  if(current == NULL || s->getStudent()->getID() < current->getStudent()->getID()){
+    // set current pointer to students next pointer
+    s->setNext(current);
+    return s;
+  }
 
+  // more to the next node
+  current->setNext(insertStudent(current->getNext(),s));
+  return current;
+}
+
+
+// print function
+void print(Node* current){
+  if (current == NULL){
+    return;
+  }
+
+  current->getStudent()->print();
+  print(current->getNext());
   
 }
+
+
+/*
+void deleteStudent(Node* n){
+  int deleteID;
+  cout << "Enter student ID to delete: " << endl;
+  cin >> deleteID;
+
+  for (i=0; i < n->getStudent(); i++){
+    if (n->getStudent()->getID() == deleteID){
+      delete s;
+      delete n;
+    }
+  }
+}
+
+//void average(
+*/
