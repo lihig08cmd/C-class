@@ -1,7 +1,7 @@
 /* this is parser . cpp    */
 
 #include <iostream>
-#include <cstirng>
+#include <cstring>
 #include "parser.h"
 using namespace std;
 
@@ -25,7 +25,7 @@ command parser:: getCommand(){
   // copy characters from inputline and stop when when it hits a spaces and null
   while (inputLine[i] !=' ' && inputLine[i] != '\0'){
     // copy one charater intp word1
-    word[j] = inputLine[i];
+    word1[j] = inputLine[i];
     i++;  // more to the next character in inputLine
     j++;  // more to the next position in word1
   }
@@ -42,16 +42,16 @@ command parser:: getCommand(){
 
   // copy charactors into words2 until end
   while (inputLine[i] != '\0'){
-    words[j] = inputLine[i];
+    word2[j] = inputLine[i];
     i++;
     j++;
   }
 
-  words[j] = '\0';
+  word2[j] = '\0';
 
 
 // check wether the first word is a valid command word
-if (command.isCommand(word1)){
+if (commands.isCommand(word1)){
   return command(word1, word2);
  }
  else {

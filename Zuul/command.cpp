@@ -11,7 +11,7 @@ command::command(){
   secondWord[0] = '\0';
 }
 
-command::command(char* first[], char* second[]){
+command::command(const char* first, const char* second){
   strcpy(commandWord, first);
   strcpy(secondWord, second);
 

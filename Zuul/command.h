@@ -8,14 +8,15 @@
 using namespace std;
 
 class command {
- public:
+
+public:
   command();
-  command(char* first[], char* second[]);
+  command(const char* first, const char* second);
   char commandWord[80];
   char secondWord[80];
 
   char* getCommandWord();
-  char* getsecondWord();
+  char* getSecondWord();
 
   bool isUnKnown();
   bool hasSecondWord();

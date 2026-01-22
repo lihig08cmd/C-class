@@ -6,12 +6,12 @@
 #include <iostream>
 #include <cstring>
 #include "command.h"
-#include "commandWord.h"
+#include "commandWords.h"
 using namespace std;
 
 class parser{
  public:
-  commandWords command;
+  commandWords commands;
   
   parser();
 

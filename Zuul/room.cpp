@@ -11,8 +11,8 @@ room::room(const char desc[]){
   itemCount =0;
 }
 
-void room::setExit(char direction[], room* neighbor){
-  strcpy(exitDirections[exitCount], direction);
+void room::setExit(const char* direction, room* neighbor){
+  strcpy(exitDirection[exitCount], direction);
   exitRooms[exitCount] = neighbor;
   exitCount++;
   
@@ -37,7 +37,7 @@ char* room::getExitString(){
   for(int i=0; i<exitCount; i++){
     strcat(result, " ");
     // add the exits
-    strcat(result, exitDirections[i]);
+    strcat(result, exitDirection[i]);
   }
   return result;
 }
@@ -60,7 +60,7 @@ void room::removeItem(char item[]){
   //loop throught all items
   for(int i=0; i<itemCount; i++){
     //check if the item matchs the one to remove
-    if(strcmp(item[i], item) == 0){
+    if(strcmp(items[i], item) == 0){
       // shifting the items left to fill the gap
       for(int j=i; j<itemCount -1; j++){
 	// copy each item one spot to the left
@@ -76,7 +76,8 @@ void room::removeItem(char item[]){
 
 
 void room::addItem(char item[]){
-  strcpy(items[itemsCount], item);  // this copies a new item's name tp put in the next free spot
+  //  this copies a new item's name tp put in the next free spot
+  strcpy(items[itemCount], item); 
   itemCount++;
 }
 
@@ -94,11 +95,20 @@ room* room::getExit(char direction[]){
   // loop throguht all exits
   for(int i=0; i<exitCount; i++){
     //check if directions matches
-    if(strcmp(exitDirections[i], direction)==0){
+    if(strcmp(exitDirection[i], direction)==0){
       return exitRooms[i];
     }
   }
 
   return NULL;
 
+}
+
+bool room::hasItem(const char* item){
+  for(int i=0; i<itemCount; i++){
+    if(strcmp(items[i], item) == 0){
+      return true;
+    }
+  }
+  return false;
 }

@@ -21,10 +21,10 @@ class room{
   int exitCount;
 
   // items in the room
-  char items[10][30];
-  int itemsCount;
+  char items[10][50];
+  int itemCount;
 
-  void SerExit(char direction, room* neighbor);
+  void setExit(const char* direction, room* neighbor);
   void setItem(item item);
 
   char* getShortDescription();
@@ -37,6 +37,8 @@ class room{
   char* getLongDescription();
 
   room* getExit(char direction[]);
+
+  bool hasItem(const char* item);
 
 };
 #endif
