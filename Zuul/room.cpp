@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cstring>
 #include "room.h"
-using namespace std;
+ using namespace std;
 
 room::room(const char desc[]){
   strcpy(description, desc);

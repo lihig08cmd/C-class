@@ -10,7 +10,7 @@ using namespace std;
 class item{
  public:
   item();
-  item(char desc[]);
+  item(const char* desc);
 
   char description[80];
 

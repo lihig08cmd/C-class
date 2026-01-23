@@ -10,7 +10,7 @@ item::item(){
   description[0] = '\0';
 }
 
-item::item(char desc[]){
+item::item(const char* desc){
   strcpy(description, desc);
 }
 

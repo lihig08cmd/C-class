@@ -15,6 +15,7 @@ command parser:: getCommand(){
   char word2[80] = "";
 
   //print prompt
+  cout << endl;
   cout << ">";
   
   cin.getline(inputLine, 100);

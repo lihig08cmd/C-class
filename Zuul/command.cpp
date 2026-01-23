@@ -26,9 +26,9 @@ char* command::getSecondWord(){
 }
 
 bool command::isUnKnown(){
-  return (commandWord[0] == '\0');
+  return commandWord == NULL ;
 }
 
 bool command::hasSecondWord(){
-  return (secondWord[0] == '\0');
+  return secondWord != NULL;
 }

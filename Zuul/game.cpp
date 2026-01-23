@@ -10,38 +10,33 @@ int inventoryCount = 0;
 
 //constructor
 game::game(){
-  creatItems();
   creatRooms();
-}
-
-void game::creatItems(){
-
-
+  creatItems();
 }
 
 void game::creatRooms(){
-  room* outside = new room("outside the main entrance");
-  room* theatre = new room("in a lecture theatre");
-  room* coffee = new room("in the campus coffee house");
-  room* lab = new room("in the computing lab");
-  room* office = new room("in the computing admin office");
-  room* music = new room("in the music room");
-  room* cafeteria = new room("in the campus cafeteria");
-  room* sitting = new room("in the setting area");
-  room* basketball = new room("in the basketball field");
-  room* locker = new room("in the locker room");
-  room* football = new room("in the football field");
-  room* principal = new room("in the principal office");
-  room* science = new room("in the science class");
-  room* math = new room("in the math class");
-  room* hallway = new room("in the hallway");
-  room* secret = new room("in the SECRET room!!!");
+  outside = new room("outside the main entrance");
+  theatre = new room("in a lecture theatre");
+  coffee = new room("in the campus coffee house");
+  lab = new room("in the computing lab");
+  office = new room("in the computing admin office");
+  music = new room("in the music room");
+  cafeteria = new room("in the campus cafeteria");
+  sitting = new room("in the setting area");
+  basketball = new room("in the basketball field");
+  locker = new room("in the locker room");
+  football = new room("in the football field");
+  principal = new room("in the principal office");
+  science = new room("in the science class");
+  math = new room("in the math class");
+  hallway = new room("in the hallway");
+  secret = new room("in the SECRET room!!!");
 
   //exits
   outside->setExit("east", theatre);
   outside->setExit("south", lab);
   outside->setExit("west", coffee);
-  outside->setExit("noeth", football);
+  outside->setExit("north", football);
 
   theatre->setExit("west", outside);
   theatre->setExit("north", music);
@@ -52,7 +47,7 @@ void game::creatRooms(){
   coffee->setExit("north", cafeteria);
 
   cafeteria->setExit("south", coffee);
-  cafeteria->setExit("north", basketball);
+  cafeteria->setExit("north", sitting);
 
   sitting->setExit("south", cafeteria);
   sitting->setExit("north", basketball);
@@ -90,6 +85,50 @@ void game::creatRooms(){
   // start location. Where the game starts
   currentRoom = outside;
 }
+
+void game::creatItems(){
+  //create items
+  item leaf("leaf");
+  item costume("costume");
+  item goldCoin("GoldCoin");
+  item cup("cup");
+  item food("food");
+  item bronzeCoin("bronzeCoin");
+  item hint1("Hint1");
+  item clothes("clothes");
+  item computers("computers");
+  item pens("pens");
+  item hint2("Hint2");
+  item silverCoin("silverCoin");
+  item calculater("calculater");
+  item emptyPaper("emptyPaper");
+  item hint3("Hint3");
+  item foot_ball("foot ball");
+
+  // put them in rooms
+  outside->setItem(leaf);
+  theatre->setItem(costume);
+  music->setItem(goldCoin);
+  coffee->setItem(cup);
+  cafeteria->setItem(food);
+  sitting->setItem(bronzeCoin);
+  sitting->setItem(hint1);
+  basketball->setItem(goldCoin);
+  locker->setItem(clothes);
+  football->setItem(foot_ball);
+  lab->setItem(computers);
+  office->setItem(pens);
+  principal->setItem(hint2);
+  principal->setItem(silverCoin);
+  science->setItem(silverCoin);
+  math->setItem(calculater);
+  math->setItem(goldCoin);
+  hallway->setItem(emptyPaper);
+  secret->setItem(hint3);
+  secret->setItem(goldCoin);
+  
+}
+
 
 void game::play(){
   printWelcome();
@@ -143,7 +182,8 @@ bool game::processCommand(command commandObj){
     dropItem(commandObj);
   }
   else if (strcmp(commandWord, "quit") ==0){
-    return quitGame(commandObj);
+    cout << "Goodbye!" << endl;
+    exit(0);
   }
 
   return false;  
@@ -157,10 +197,10 @@ void game::printHelp(){
 }
 
 void game::printInventory(){
-  cout << "Inventory: : " << endl;
+  cout << "Inventory: ";
   // loop throguht all iteams the player has
   for(int i=0; i<inventoryCount; i++){
-    cout << inventory[i]; 
+    cout << " " <<inventory[i]; 
   }
 }
 
@@ -210,7 +250,8 @@ void game::pickItem(command commandObj){
   }
 
   // add item to inventory
-  inventory[inventoryCount] = item;
+  inventory[inventoryCount] = new char[strlen(item) +1];
+  strcpy(inventory[inventoryCount], item);
   inventoryCount++;
 
   //remove item form the room
@@ -220,6 +261,29 @@ void game::pickItem(command commandObj){
   cout << currentRoom->getLongDescription() << endl;
   cout << currentRoom->getItemString() << endl;
   printInventory();
+
+  // prints hint
+  if(strcmp(item, "Hint1")==0){
+    cout << endl;
+    cout << "Hint1: Maybe collecting coins is important..." << endl;
+  }
+  else if(strcmp(item,"Hint2")==0){
+    cout << endl;
+    cout << "Hint2: Some rooms may hide valuable items" << endl;
+  }
+  else if(strcmp(item, "Hint3") ==0){
+    cout << endl;
+    cout << "Hint3: Three gold coins might get you a win" << endl;
+  }
+
+  // check win condition (if the player collected 3 gold coints)
+  if(countGoldCoins() == 3){
+    cout << endl;
+    cout << "YOU WIN!!!! You collected 3 Gold Coints!" << endl;
+    cout << "You can choose to look around or quit! Thanks for playing!" << endl;
+  }
+
+  
 }
 
 void game::dropItem(command commandObj){
@@ -261,11 +325,16 @@ void game::dropItem(command commandObj){
   printInventory();
 }
 
-bool game::quitGame(command commandObj){
-  //if user typed "quit something"
-  if(commandObj.hasSecondWord()){
-    cout << "Quit what? " << endl;
-    return false;
+  //winning condition
+int game::countGoldCoins(){
+  int count = 0;
+  // loop throguht each item in inventory
+  for(int i=0; i <inventoryCount; i++){
+    // check to see if it is GoldCoin
+    if(strcmp(inventory[i], "GoldCoin") ==0){
+      // add it to count
+      count++;
+    }
   }
-  return false;
+  return count;
 }

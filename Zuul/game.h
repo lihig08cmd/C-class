@@ -18,6 +18,22 @@ private:
   parser parser;
   // pointer to the room the player is in
   room* currentRoom;
+  room* outside;
+  room* theatre;
+  room* coffee;
+  room* lab;
+  room* office;
+  room* music;
+  room* cafeteria;
+  room* sitting;
+  room* basketball;
+  room* locker;
+  room* football;
+  room* principal;
+  room* science;
+  room* math;
+  room* hallway;
+  room* secret;
 
 public:
   game();
@@ -33,6 +49,7 @@ public:
   void pickItem(command command);
   void dropItem(command command);
   bool quitGame(command command);
+  int countGoldCoins();
 
 };
 #endif
