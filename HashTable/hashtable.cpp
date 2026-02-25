@@ -57,6 +57,35 @@ void HashTable::rehash(){
   int oldSize = tableSize;
   tableSize *= 2;
 
-  Student** 
+  Student** oldTable = table;
+
+  table = new Student*[tableSize];
+
+  for(int i; i< tableSize; i++){
+    table[i] == NULL;
+  }
+
+  
+
+}
+
+// createing student
+Student* HashTable::createStudent(const char* first, const char* last, float gpa){
+  
+
+}
+
+// adding a student
+void HashTable::addStudent(Student* s){
+
+
+}
+
+void HashTable::printTable(){
+
+}
+
+void HashTable::deleteStudent(){
+
 
 }
