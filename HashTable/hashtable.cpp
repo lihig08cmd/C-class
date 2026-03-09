@@ -52,6 +52,7 @@ int HashTable::chainLength(Student* head){
 }
 
 // rehash.  When chain >3
+/*
 void HashTable::rehash(){
 
   int oldSize = tableSize;
@@ -65,24 +66,63 @@ void HashTable::rehash(){
     table[i] == NULL;
   }
 
+  for(int i; i<oldTable; i++){
+    
+    Student* current = oldTable[i];
+
+    while(current != NULL){
+      student* nextNode = current->next;
+      
+    }
+
+  }
+
   
 
 }
 
+*/
+
 // createing student
 Student* HashTable::createStudent(const char* first, const char* last, float gpa){
-  
+  Student* s = new Student;
 
+  strcpy(s->first, first);
+  strcpy(s->last, last);
+
+  s->gpa = gpa;
+  s_>id = nextID++;
+  s->next = NULL;
+
+  return s;
 }
 
 // adding a student
 void HashTable::addStudent(Student* s){
+  int index = hashStudent(student*s);
 
+  // put at the head of the chain
+  s->next = table[index];
+  table[index] = s;
 
+  //check collision
+  if(chainLength(table[index]) >3){
+    rehash();
 }
 
 void HashTable::printTable(){
+  for(int i=0; i<tableSize; i++){
+    Student* current = table[i];
+    while (current != NULL){
+      cout <<"ID: " << current->id<< endl;
+      cout <<"First name: "<< current->first<< endl;
+      cout <<"Last name: " << current->last << endl;
+      cout <<"GPA: " << current->gpa<< endl;
 
+      current = current->next;
+    }
+  }
+  
 }
 
 void HashTable::deleteStudent(){
