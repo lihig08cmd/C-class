@@ -52,36 +52,46 @@ int HashTable::chainLength(Student* head){
 }
 
 // rehash.  When chain >3
-/*
 void HashTable::rehash(){
 
   int oldSize = tableSize;
+  //double the table size
   tableSize *= 2;
 
+  //save pointer to the onld table
   Student** oldTable = table;
 
+  //createing a new bigger table
   table = new Student*[tableSize];
 
   for(int i; i< tableSize; i++){
     table[i] == NULL;
   }
 
+  //go thrgouht every slot of the old table
   for(int i; i<oldTable; i++){
     
     Student* current = oldTable[i];
 
     while(current != NULL){
       student* nextNode = current->next;
-      
+
+      //new index based on new table size
+      int index = hashFunction(current->id);
+
+      //put node into the new table
+      current->next = table[index];
+      table[index] = current;
+
+      current = nextNode;
     }
 
   }
-
-  
-
+  // delete the old table
+  delete[] oldTable;
 }
 
-*/
+
 
 // createing student
 Student* HashTable::createStudent(const char* first, const char* last, float gpa){
@@ -91,7 +101,7 @@ Student* HashTable::createStudent(const char* first, const char* last, float gpa
   strcpy(s->last, last);
 
   s->gpa = gpa;
-  s_>id = nextID++;
+  s->id = nextID++;
   s->next = NULL;
 
   return s;
@@ -99,7 +109,7 @@ Student* HashTable::createStudent(const char* first, const char* last, float gpa
 
 // adding a student
 void HashTable::addStudent(Student* s){
-  int index = hashStudent(student*s);
+  int index = hashStudent(s->id);
 
   // put at the head of the chain
   s->next = table[index];
@@ -108,7 +118,9 @@ void HashTable::addStudent(Student* s){
   //check collision
   if(chainLength(table[index]) >3){
     rehash();
+  }
 }
+
 
 void HashTable::printTable(){
   for(int i=0; i<tableSize; i++){
@@ -122,10 +134,28 @@ void HashTable::printTable(){
       current = current->next;
     }
   }
-  
 }
 
-void HashTable::deleteStudent(){
+void HashTable::deleteStudent(int id){
+  int index  = hashFunction(id);
 
+  Student* current = table[index];
+  Student* prev = NULL;
 
+  while(current != NULL){
+    if(current->id == id){
+      if(prev==NULL){
+	table[index]=current->next;
+      }
+      else{
+	prev->next = current->next;
+      }
+      delete current;
+      cout <<"Student has been deleted" <<endl;
+      return;
+    }
+    prev = current;
+    current = current->next;
+  }
+  cout <<"student not found"<< endl;
 }

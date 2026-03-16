@@ -4,7 +4,7 @@
 #define HASHTABLE_H
 
 #include <cstring>
-#include <iostrem>
+#include <iostream>
 using namespace std;
 
 // this stract represents one student node
@@ -42,7 +42,7 @@ public:
   void deleteStudent(int id);
   
   // random generator
-  void generateRandom(int count);
+  //void generateRandom(int count);
   
 };
 #endif
