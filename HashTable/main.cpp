@@ -29,7 +29,7 @@ int main(){
 
   // arrays for names
   char* firstNames[20];
-  char* lastNames[20];
+  char* lastNames[6];
 
   // load names from files
   loadNames(firstNames, lastNames);
