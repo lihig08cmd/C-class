@@ -12,7 +12,7 @@ HashTable::HashTable(){
   table = new Student*[tableSize];
 
   // set to null
-  for (int 1=0; i<tableSize; i++){
+  for (int i=0; i<tableSize; i++){
     table[i] = NULL;
   }
 }
@@ -65,16 +65,16 @@ void HashTable::rehash(){
   table = new Student*[tableSize];
 
   for(int i; i< tableSize; i++){
-    table[i] == NULL;
+    table[i] = NULL;
   }
 
   //go thrgouht every slot of the old table
-  for(int i; i<oldTable; i++){
+  for(int i=0; i< oldSize; i++){
     
     Student* current = oldTable[i];
 
     while(current != NULL){
-      student* nextNode = current->next;
+      Student* nextNode = current->next;
 
       //new index based on new table size
       int index = hashFunction(current->id);
@@ -109,7 +109,7 @@ Student* HashTable::createStudent(const char* first, const char* last, float gpa
 
 // adding a student
 void HashTable::addStudent(Student* s){
-  int index = hashStudent(s->id);
+  int index = hashFunction(s->id);
 
   // put at the head of the chain
   s->next = table[index];

@@ -7,8 +7,17 @@
 
 #include <iostream>
 #include <cstring>
+#include <fstream> //for reading files
+#include <cstdlib>
+#include <ctime>
 #include "hashTable.h"
 using namespace std;
+
+// this function loads first names and last names from text files into arrays
+void loadNames(char* firstNames[20], char* lastNames[20]);
+//This function generates random students and adds them to the hash table
+void generateStudents(HashTable & table, char* firstNames[20], char* lastNames[20], int num);
+
 
 
 int main(){
@@ -36,4 +45,58 @@ int main(){
 
 
 
+}
+
+
+void loadNames(char* firstNames[20], char* lastNames[20]){
+
+  //open files
+  ifstream firstFile("firstNames.txt");
+  ifstream lastFile("lastNames.txt");
+
+  int i=0;
+
+  char temp[50];
+
+  //first names
+  while(i<20 && firstFile.getline(temp,50)){
+    firstNames[i] = new char[strlen(temp) +1];
+
+    //copy name into array
+    strcpy(firstNames[i], temp);
+
+    i++;
+  }
+
+  firstFile.close();
+
+  // last names
+  i=0;
+  while(i<20 && lastFile.getline(temp,50)){
+    lastNames[i] = new char[strlen(temp)+1];
+    strcpy(lastNames[i], temp);
+
+    i++;
+  }
+  lastFile.close();
+}
+
+
+void generateStudents(HashTable & table, char* firstNames[20], char* lastNames[20], int num){
+  for(int i=0; i<num; i++){
+    //pick random first name
+    int firstIndex = rand() %20;
+
+    // pick random last name
+    int lastIndex = rand() %20;
+
+    //random GPA between 1.0 and 4.0
+    float GPA = ((rand()%301)/100.0) + 1.0;
+
+    // create student using HashTable function
+    Student* s= table.createStudent(firstNames[firstIndex],lastNames[lastIndex],GPA);
+    //add student to hash table
+    table.addStudent(s);
+
+  }
 }
