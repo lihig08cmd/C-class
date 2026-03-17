@@ -2,7 +2,7 @@
   Hash Table
 
   lihi Gavrielov
-  3/ /2026   */
+  3/16/2026   */
 
 
 #include <iostream>
@@ -21,20 +21,58 @@ void generateStudents(HashTable & table, char* firstNames[20], char* lastNames[2
 
 
 int main(){
+  //makes random numbers diffrent each run
+  srand(time(NULL));
 
+  // create hash table
+  HashTable table;
+
+  // arrays for names
+  char* firstNames[20];
+  char* lastNames[20];
+
+  // load names from files
+  loadNames(firstNames, lastNames);
 
   while(true){
     //user input
     char input[80];
-    cout << "Enter command (ADD,PRINT,DELETE,QUIT, ): " << endl;
+    cout << "Enter command (ADD,PRINT,DELETE,RANDOM,QUIT): " << endl;
     cin>> input;
 
     // if input is add
     if(strcmp(input, "ADD")==0){
+      char first[20];
+      char last[20];
+      float gpa;
+
+      cout <<"First name: " << endl;
+      cin >>first;
+      cout <<"Last name: " << endl;
+      cin >>last;
+      cout <<"GPA: " << endl;
+      cin >> gpa;
+
+      //create student
+      Student* s= table.createStudent(first, last, gpa);
+
+      //add to hash table
+      table.addStudent(s);
     }
     else if(strcmp(input, "PRINT")==0){
+      table.printTable();
     }
     else if(strcmp(input, "DELETE")==0){
+      int id;
+      cout<<"Enter ID " << endl;
+      cin >> id;
+      table.deleteStudent(id);
+    }
+    else if(strcmp(input, "RANDOM")==0){
+      int num;
+      cout<< "How many students: " << endl;
+      cin >> num;
+      generateStudents(table, firstNames,lastNames,num);
     }
     else if(strcmp(input, "QUIT")==0){
       break;
@@ -42,8 +80,6 @@ int main(){
 
 
   }
-
-
 
 }
 
