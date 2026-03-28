@@ -9,9 +9,10 @@ using namespace std;
 // functions prototypes
 void add_num(int heap[101],int &last_idx, int num); //adds num to the heap in "last place
 void add_file(int heap[101], int &last_idx); //add numbers from file to heap 
-void remove(int heap[101]);//
-void print(int heap[101], int last_idx);
-void swap(int heap[101], int a, int b); // swaping 
+void remove(int heap[101], int &last_idx);// remove root
+void remove_all(int heap[101], int &last_idx);  //remove everything
+void print(int heap[101], int index, int last_idx, int depth); //print tree
+void swap(int heap[101], int a, int b); // swapping 
 
 
 int main(){
@@ -20,7 +21,7 @@ int main(){
 
   while(true){
     char command[80];
-    cout << "Enter command(To add-NUMBER/FILE, REMOVE, DISPLAY, QUIT)"<< endl;
+    cout << "Enter command(To add-NUMBER/FILE, REMOVE, REMOVEALL DISPLAY, QUIT)"<< endl;
     cin>>command;
     //cin.getline(command,80);
 
@@ -35,10 +36,13 @@ int main(){
       add_file(heap, last_idx);
     }
     else if(strcmp(command, "REMOVE")==0){
-      cout <<"remove();   " << endl;
+      remove(heap, last_idx);
+    }
+    else if(strcmp(command, "REMOVEALL") ==0){
+      remove_all(heap, last_idx);
     }
     else if(strcmp(command,"DISPLAY")==0){
-      print(heap, last_idx);
+      print(heap, 1,last_idx,0);
     }
     else if(strcmp(command, "QUIT") ==0){
       break;
@@ -63,7 +67,7 @@ void add_num(int heap[101],int &last_idx, int num){
     swap(heap,current,parent_idx);
     //after swap update the indexs
     current = parent_idx;  // move up
-    parent_idx = current/2;  //recalc parent
+    parent_idx = current/2;  //find new parent
   }
   
   last_idx++;
@@ -79,8 +83,6 @@ void add_file(int heap[101], int &last_idx){
   int num;
 
   while(file >> num){
-    cout << "hi" << endl;
-    cout << num << endl;
     add_num(heap,last_idx,num);
   }
 
@@ -97,18 +99,69 @@ void swap(int heap[101], int a, int b){
 }
 
 
-/*
+// this function prints the largest num and then removes the root
 void remove(int heap[101], int &last_idx){
-  if(last_idx ==
-
-
-}
-*/
-
-
-void print(int heap[101], int last_idx){
-  for(int i=1; i<last_idx; i++){
-    cout << heap[i] << endl;
+  //check if empty
+  if(last_idx == 1){
+    cout << "Heap is empty" << endl;
+    return;
   }
 
+  //print the largest
+  cout << heap[1] << endl;
+
+  //reduce size
+  last_idx--;
+  //move last to root
+  heap[1] = heap[last_idx];
+
+  int current = 1;
+  
+  while(true){
+    int left = current *2;
+    int right = current *2+1;
+    int largest = current;
+
+    //checking left child
+    if(left < last_idx && heap[left] > heap[largest]){
+      largest = left;
+    }
+
+    //checking right child
+    if(right < last_idx && heap[right] > heap[largest]){
+      largest = right;
+    }
+
+    // already in the right spot
+    if(current == largest){
+      break;
+    }
+    swap(heap, current, largest);
+    //move down
+    current = largest;
+  }
+}
+
+void remove_all(int heap[101], int &last_idx){
+  // repeatedly remove root and also prints the largest each time
+  while(last_idx >1){
+    remove(heap, last_idx);
+  }
+}
+
+void print(int heap[101], int index, int last_idx, int depth){
+  if(index >= last_idx){
+    return;
+  }
+
+  //right child
+  print(heap, index*2+1, last_idx, depth+1);
+
+  for(int i=0; i<depth; i++){
+    cout << "\t";
+  }
+  cout << heap[index] << endl;
+
+  // left child
+  print(heap, index*2, last_idx, depth+1);
 }
