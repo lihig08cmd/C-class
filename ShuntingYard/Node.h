@@ -16,7 +16,7 @@ class Node{
   char value;
 
  public:
-  Node();
+  Node(char v);
   ~Node();
   Node* getRight();
   Node* getLeft();
@@ -25,8 +25,8 @@ class Node{
   char getValue();
   void setRight(Node* r);
   void setLeft(Node* l);
-  void setNext(Node n);
-  void setPrev(Node p);
+  void setNext(Node* n);
+  void setPrev(Node* p);
   void setValue(char v);
 
 

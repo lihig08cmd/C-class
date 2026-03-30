@@ -6,7 +6,7 @@
 using namespace std;
 
 Node::Node(){
-  value = ;
+  value = v;
   left = NULL;
   right = NULL;
   next = NULL;
@@ -30,7 +30,7 @@ Node* Node::getNext(){
 }
 
 Node* Node::getPrev(){
-  retrun prev;
+  return prev;
 }
 
 Node* Node::getValue(){
