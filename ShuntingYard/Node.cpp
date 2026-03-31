@@ -5,16 +5,14 @@
 #include "Node.h"
 using namespace std;
 
-Node::Node(){
+Node::Node(char v){
   value = v;
   left = NULL;
   right = NULL;
   next = NULL;
-  prev = NULL;
 }
 
-Node::~Node(){
-  
+Node::~Node(){  
 }
 
 Node* Node:: getRight(){
@@ -29,11 +27,7 @@ Node* Node::getNext(){
   return next;
 }
 
-Node* Node::getPrev(){
-  return prev;
-}
-
-Node* Node::getValue(){
+char Node::getValue(){
   return value;
 }
 
@@ -49,11 +43,7 @@ void Node::setNext(Node* n){
   next = n;
 }
 
-void Node::setPrev(Node* p){
-  prev = p;
-}
-
-void node::setValue(char v){
+void Node::setValue(char v){
   value = v;
 }
 
