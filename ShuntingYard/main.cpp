@@ -95,12 +95,12 @@ struct Queue{
 };
 
 // function prototype
-int precedence(char c);//operator precendece
+int order(char c);//operator precendece
 bool isOperators(char c);//check if its a opeator 
-Node* buildTree(Queue &output);  //build expression tree from postfix 
+Node* buildTree(Queue &postfix);  //build expression tree from postfix 
 void printPrefix(Node* root);  //  this function prints the prefix
 void printInfix(Node* root);  //  this function prints the infix
-void printPostfix(Node* root);  // this function prints the postfix
+
 
 int main(){
   char input[100];
@@ -134,7 +134,7 @@ int main(){
 
     //right parenthesis
     else if(current == ')' ){
-      // pop operators until '(' is found
+      // peek operators until '(' is found
       while(!operators.isempty() && operators.peek()->getValue() !='('){
 	// move operators to output
 	output.enqueue(operators.pop());
@@ -146,7 +146,7 @@ int main(){
     //operator
     else if(isOperators(current)){
       // while is stack not empty and top is operator and top had higher or same prioraty 
-      while(!operators.isempty()&&isOperators(operators.peek()->getValue())&&precedence(operators.peek()->getValue()) >= precedence(current)){
+      while(!operators.isempty()&&isOperators(operators.peek()->getValue())&&order(operators.peek()->getValue()) >= order(current)){
 	//move stronger operator to output first
 	output.enqueue(operators.pop());
       }
@@ -159,13 +159,41 @@ int main(){
   while(!operators.isempty()){
     output.enqueue(operators.pop());
   }
-
-  //copy postfix
-  Queue postfixCopy;
   
+  //to copy postfix
+  Queue postfixCopy;
+
+  cout << "Postfix: ";
+
+  // go through original queue
+  while(!output.isempty()){
+    //remove front node from output queue
+    Node* temp = output.dequeue();
+
+    //add to new queue 
+    postfixCopy.enqueue(temp);
+
+    //print postfix expresstion
+    cout << temp->getValue() << " ";
+  }
+  cout << endl;
+
+  // bulid tree
+  Node* root = buildTree(postfixCopy);
+
+  //printing from tree
+  cout << "Infix: ";
+  printInfix(root);
+  cout << endl;
+
+  cout<<"Prefix: ";
+  printPrefix(root);
+  cout << endl;
+
+  return 0;
 }
 
-int precedence(char c){
+int order(char c){
   if(c=='+' || c=='-'){
     return 1;
   }
@@ -182,4 +210,61 @@ bool isOperators(char c){
   return (c=='+' || c=='-' || c=='*' || c=='/' || c=='^');
 }
 
+Node* buildTree(Queue &postfix){
+  Stack stack;
+
+  // go through postfix one token at a time
+  while(!postfix.isempty()){
+
+    // take next item
+    Node* current = postfix.dequeue();
+    char value = current->getValue();
+
+    //if number push
+    if(value >= '0' && value <= '9'){
+      //numbers become leaf
+      stack.push(current);
+    }
+
+    //operator
+    else{
+      // pop two nodes
+      Node* right  = stack.pop();
+      Node* left = stack.pop();
+
+      // connect operator
+      current->setLeft(left);
+      current->setRight(right);
+
+      //push back onto stack
+      stack.push(current);
+    }
+
+  }
+  // the last node left is the root
+  return stack.pop();
+}
+
+void printPrefix(Node* root){
+  if(root==NULL){
+    return;
+  }
+
+  //left, right, root
+  cout<<root->getValue() << " "; //print root
+  printPrefix(root->getLeft());
+  printPrefix(root->getRight());
   
+}
+
+
+void printInfix(Node* root){
+  if(root==NULL){
+    return;
+  }
+
+  // left, root, right
+  printInfix(root->getLeft()); //go left first
+  cout << root->getValue() << " "; //print root
+  printInfix(root->getRight());  // go right
+}
