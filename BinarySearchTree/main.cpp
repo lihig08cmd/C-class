@@ -13,7 +13,7 @@ struct Node{
 
 // function prototype
 Node* addNum(Node* root, int num);
-void addFile(Node* root);
+void addFile(Node*& root);
 bool search(Node* root, int num);
 Node* remove(Node* root, int num);
 void print(Node* root, int space);
@@ -30,7 +30,7 @@ int main(){
       int num;
       cout << "Enter number between 1 and 999: " << endl;
       cin>>num;
-      addNum(root, num);
+      root = addNum(root, num);
     }
     else if(strcmp(command, "FILE") ==0){
       addFile(root);
@@ -43,9 +43,21 @@ int main(){
       //remove(root);
     }
     else if(strcmp(command, "SEARCH")==0){
-      //search(root);
+      int num;
+      cout << "Enter number to search in tree: " << endl;
+      cin >>num;
+      
+      //cout << search(root, num) << endl;
+      if(search(root, num)){
+	cout << "This number was found in the tree" << endl;
+      }
+      else {
+	cout << "This number was NOT found in tree" << endl;
+      }
     }
     else if(strcmp(command, "P") ==0){
+      //cout << "else if P " << endl;
+      //cout << root << endl;
       print(root, 0);
     }
     else if(strcmp(command, "QUIT")==0){
@@ -79,7 +91,7 @@ Node* addNum(Node* root, int num){
 }
 
 
-void addFile(Node* root){
+void addFile(Node*& root){
   // ask the user for the name file
   char filename[80];
   cout << "Enter file name: " << endl;
@@ -89,24 +101,46 @@ void addFile(Node* root){
 
   int num;
   while(file >> num){
-    addNum(root, num);
+    root = addNum(root, num);
   }
   
   //close file
   file.close();
 }
 
+bool search(Node* root, int num){
+  if(root == NULL){
+    return false;
+  }
+
+  // found
+  if(root->value == num){
+    return true;
+  }
+
+  // countinue to search
+  if(root->value < num){
+    return search(root->right, num);
+  }
+  else {
+    return search(root->left, num);
+  }
+  
+}
+
 void print(Node* root, int space){
+  //cout <<"in print function " << endl;
+
   if(root == NULL){
     return;
   }
-
-  cout << "=============" << endl;
-
   
-  print(root->right, space +1);
 
-  //print
+  //cout << "=============" << endl;
+
+  print(root->right, space+1);
+
+  //print 
   for(int i=0; i<space; i++){
     cout << " ";
   }
