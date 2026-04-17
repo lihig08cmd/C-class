@@ -15,8 +15,9 @@ struct Node{
 Node* addNum(Node* root, int num);
 void addFile(Node*& root);
 bool search(Node* root, int num);
-Node* remove(Node* root, int num);
+Node* removeNum(Node* root, int num);
 void print(Node* root, int space);
+Node* findSmallest(Node* root);
 
 int main(){
   Node* root = NULL;
@@ -39,7 +40,8 @@ int main(){
       int num;
       cout << "Enter number to remvoe: " << endl;
       cin >> num;
-      
+
+      root = removeNum(root, num);
       //remove(root);
     }
     else if(strcmp(command, "SEARCH")==0){
@@ -55,12 +57,13 @@ int main(){
 	cout << "This number was NOT found in tree" << endl;
       }
     }
-    else if(strcmp(command, "P") ==0){
+    else if(strcmp(command, "PRINT") ==0){
       //cout << "else if P " << endl;
       //cout << root << endl;
       print(root, 0);
     }
     else if(strcmp(command, "QUIT")==0){
+      cout << "BYE" << endl;
       break;
     }
   }
@@ -118,13 +121,76 @@ bool search(Node* root, int num){
     return true;
   }
 
-  // countinue to search
+  // search right if num is larger
   if(root->value < num){
     return search(root->right, num);
   }
+  // search left if num is smaller
   else {
     return search(root->left, num);
   }
+  
+}
+
+Node* findSmallest(Node* root){
+  // finding the smallset number in a subtree
+  // so keep going left until null
+  while(root->left != NULL){
+    root = root->left;
+  }
+  return root;
+}
+
+Node* removeNum(Node* root, int num){
+  //if the tree is empty
+  if(root == NULL){
+    return NULL;
+  }
+
+  // find the num in tree to delete
+  // if num is smaller then go left
+  if(num < root->value){
+    root->left = removeNum(root->left, num);
+  }
+  //if num larger then go right
+  else if(num > root->value){
+    root->right = removeNum(root->right, num);
+  }
+  // else (found the node to delete)
+  else{
+    // Case 1: No children
+    if(root->left == NULL && root->right ==NULL){
+      // just delete it
+      delete root;
+      return NULL;
+    }
+
+    // case 2: has only right child
+    else if(root->left == NULL){
+      //replace node with right child
+      Node* temp = root->right;
+      delete root;
+      return temp;
+    }
+
+    // case 3: has only left child
+    else if(root->right == NULL){
+      // replace node with left child
+      Node* temp = root->left;
+      delete root;
+      return temp;
+    }
+
+    //case 4: has 2 children
+    else {
+      // delete by using successor. 
+      Node* successor = findSmallest(root->right);
+      // root value is now successor value (which is the next largest)
+      root->value = successor->value;
+      root->right = removeNum(root->right, successor->value);
+    }
+  }
+  return root;
   
 }
 
@@ -134,19 +200,16 @@ void print(Node* root, int space){
   if(root == NULL){
     return;
   }
-  
 
-  //cout << "=============" << endl;
-
+  // print right side first (it will be at the top when it is printed)
   print(root->right, space+1);
 
   //print 
   for(int i=0; i<space; i++){
-    cout << " ";
+    cout << "   ";
   }
-
   cout << root->value << endl;
 
-  //print left side
+  //print left side (it will be at the bottom)
   print(root->left, space+1);
 }
