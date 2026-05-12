@@ -33,6 +33,9 @@ void redBlackTree::rotateLeft(Node* current){
     child->left->parent = current;
   }
 
+  //child moves up
+  child->parent = current->parent;
+
   // if current was root then child becomes root
   if(current->parent == NULL){
     root = child;
