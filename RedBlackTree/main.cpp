@@ -8,11 +8,15 @@ int main(){
   redBlackTree tree;
   
   char command[80];
-  cout << "Enter command(ADD, FILE, PRINT): " << endl;
-  cin>>command;
+  //cout << "Enter command(ADD, FILE, PRINT): " << endl;
+  //cin>>command;
 
   while(true){
-    if(strcmp,(command, "ADD") ==0){
+    //char command[80];
+    cout << "Enter command(ADD, FILE, PRINT, QUIT): " << endl;
+    cin>>command;
+    
+    if(strcmp(command, "ADD") ==0){
       int num;
       cout<< "Enter number between 1 and 999: " << endl;
       cin>>num;
