@@ -131,6 +131,9 @@ void redBlackTree::fixTree(Node* current){
 
 	  //rotate parent left
 	  rotateLeft(current);
+
+	  //updata parent after rotation
+	  parent = current->parent;
 	}
 	//parent is now black
 	parent->color = BLACK;
@@ -158,6 +161,9 @@ void redBlackTree::fixTree(Node* current){
 	  current = parent;
 
 	  rotateRight(current);
+
+	  //updata parent
+	  parent = current->parent;
 	}
 	parent->color = BLACK;
 	grandparent->color = RED;
