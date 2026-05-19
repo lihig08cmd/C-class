@@ -277,11 +277,49 @@ void redBlackTree::print(){
   print(root, 0);
 }
 
-//search
+//search helper
 Node* redBlackTree::search(Node* current, int value){
   
   if(current == NULL){
     return NULL;
   }
+
+  //value found
+  if(current->value == value){
+    return current;
+  }
+
+  //if smaller go left
+  if(value < current->value){
+    return search(current->left, value);
+  }
+
+  // else if bigger go right
+  else{
+    return search(current->right, value);
+  }
+}
+
+// search
+void redBlackTree::search(int value){
+  Node* result = search(root, value);
+
+  //if found
+  if(result != NULL){
+    cout << value << " IS in tree" << endl;
+  }
+  // else if not found
+  else{
+    cout << value << " is NOT found" << endl;
+  }
+}
+
+//this finds the smallest node in the right subtree
+//(Neede to use when deleteing and node has 2 children)
+Node* redBlackTree::findSuccessor(Node* current){
+
+}
+
+void redBlackTree::remove(int value){
   
 }

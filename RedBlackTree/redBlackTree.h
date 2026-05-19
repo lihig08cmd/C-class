@@ -37,7 +37,7 @@ class redBlackTree{
   //print tree sideways 
   void print(Node* current, int space);
 
-  // search
+  // search healper
   Node* search(Node* current, int value);
 
   //for delete
