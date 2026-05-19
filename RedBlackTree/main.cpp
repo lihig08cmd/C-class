@@ -13,7 +13,7 @@ int main(){
 
   while(true){
     //char command[80];
-    cout << "Enter command(ADD, FILE, PRINT, QUIT): " << endl;
+    cout << "Enter command(ADD, FILE, PRINT, SEARCH, DELETE, QUIT): " << endl;
     cin>>command;
     
     if(strcmp(command, "ADD") ==0){
@@ -30,6 +30,19 @@ int main(){
     }
     else if(strcmp(command, "PRINT") ==0){
       tree.print();
+    }
+    else if(strcmp(command, "SEARCH")==0){
+      int num;
+      cout << "Enter a number to search" << endl;
+      cin >>num;
+      tree.search(num);
+    }
+    else if(strcmp(command, "DELETE")==0){
+      int num;
+      cout << "Enter number to delete: "<< endl;
+      cin >>num;
+
+      tree.remove(num);
     }
     else if(strcmp(command, "QUIT") ==0){
       break;

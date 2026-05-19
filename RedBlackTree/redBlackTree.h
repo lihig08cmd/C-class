@@ -37,6 +37,12 @@ class redBlackTree{
   //print tree sideways 
   void print(Node* current, int space);
 
+  // search
+  Node* search(Node* current, int value);
+
+  //for delete
+  Node* findSuccessor(Node* current);
+
  public:
   redBlackTree();
   ~redBlackTree();
@@ -45,6 +51,9 @@ class redBlackTree{
   void readFile(char fileName[]);
   //print from root
   void print();
+
+  void search(int value);
+  void remove(int value);
 
 };
 #endif

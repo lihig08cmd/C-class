@@ -277,3 +277,11 @@ void redBlackTree::print(){
   print(root, 0);
 }
 
+//search
+Node* redBlackTree::search(Node* current, int value){
+  
+  if(current == NULL){
+    return NULL;
+  }
+  
+}
