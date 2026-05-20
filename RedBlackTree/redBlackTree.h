@@ -43,6 +43,9 @@ class redBlackTree{
   //for delete
   Node* findSuccessor(Node* current);
 
+  //helper to replace one subtree with another
+  void transplant(Node* u, Node* v);
+
  public:
   redBlackTree();
   ~redBlackTree();

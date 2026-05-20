@@ -42,7 +42,7 @@ int main(){
       cout << "Enter number to delete: "<< endl;
       cin >>num;
 
-      //tree.remove(num);
+      tree.remove(num);
     }
     else if(strcmp(command, "QUIT") ==0){
       break;

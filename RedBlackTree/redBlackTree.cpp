@@ -317,9 +317,90 @@ void redBlackTree::search(int value){
 //this finds the smallest node in the right subtree
 //(Neede to use when deleteing and node has 2 children)
 Node* redBlackTree::findSuccessor(Node* current){
-
+  //keep going left until smallest
+  while(current->left != NULL){
+    current = current->left;
+  }
+  return current;
 }
 
+//replace one subtree with another
+void redBlackTree::transplant(Node* u, Node* v){
+
+  //if deleting root
+  if(u->parent == NULL){
+    root = v;
+  }
+
+  //if left child was u
+  else if(u== u->parent->left){
+    u->parent->left = v;
+  }
+
+  // if right child was u
+  else{
+    u->parent->right = v;
+  }
+
+  //fix parent pointer
+  if(v != NULL){
+    v->parent = u->parent;
+  }
+}
+
+// delete 
 void redBlackTree::remove(int value){
-  
+
+  //find node
+  Node* deleting = search(root, value);
+
+  //if not found
+  if(deleting = NULL){
+    cout << "value not found" << endl;
+    return;
+  }
+
+  // if no left child
+  if(deleting->left == NULL){
+    transplant(deleting, deleting->right);
+  }
+
+  // else if no right child
+  else if(deleting->right == NULL){
+    transplant(deleting, deleting->left);
+  }
+
+  // else two children
+  else{
+    
+    //get successor
+    Node* successor = findSuccessor(deleting->right);
+
+    //if successor is not directly nect to deleting
+    if(successor->parent != deleting){
+      // move successor right child upward
+      transplant(successor, successor->right);
+      //successor right becomes deleting right
+      successor->right = deleting->right;
+      //fix parent pointer
+      if(successor->right != NULL){
+	successor->right->parent = successor;
+      //successor->right->parent = successor;
+      }
+    }
+
+    transplant(deleting, successor);
+    successor->left = deleting->left;
+
+    //fix parent pointer
+    successor->left->parent = successor;
+    //keep original color
+    successor->color = deleting->color;
+  }
+  delete deleting;
+
+  //root is black
+  if(root != NULL){
+    root->color = BLACK;
+  }
 }
