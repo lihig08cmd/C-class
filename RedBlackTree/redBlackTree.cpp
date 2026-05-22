@@ -355,7 +355,7 @@ void redBlackTree::remove(int value){
   Node* deleting = search(root, value);
 
   //if not found
-  if(deleting = NULL){
+  if(deleting == NULL){
     cout << "value not found" << endl;
     return;
   }
@@ -385,7 +385,6 @@ void redBlackTree::remove(int value){
       //fix parent pointer
       if(successor->right != NULL){
 	successor->right->parent = successor;
-      //successor->right->parent = successor;
       }
     }
 
@@ -393,7 +392,10 @@ void redBlackTree::remove(int value){
     successor->left = deleting->left;
 
     //fix parent pointer
-    successor->left->parent = successor;
+    if(successor->left != NULL){
+      successor->left->parent = successor;
+    }
+    //successor->left->parent = successor;
     //keep original color
     successor->color = deleting->color;
   }
