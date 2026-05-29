@@ -176,6 +176,100 @@ void redBlackTree::fixTree(Node* current){
   root->color = BLACK;
 }
 
+//fixes tree after deleting
+void redBlackTree::fixDelete(Node* current){
+  if(current == NULL){
+    return;
+  }
+
+  if(current == root){
+    current->color = BLACK;
+    return;
+  }
+
+  //both current and parent are red
+  if(current != root && current->parent != NULL && current->color == RED && current->parent->color == RED){
+
+    //save parent
+    Node* parent = current->parent;
+    // save grandparent
+    Node* grandparent = parent->parent;
+
+    if(grandparent == NULL){
+      return;
+    //parent->color = BLACK;
+    //return;
+    }
+
+    //parent on left
+    if(parent == grandparent->left){
+      Node* uncle = grandparent->right;
+
+      //red uncle recolor
+      if(uncle != NULL && uncle->color == RED){
+	parent->color = BLACK;
+	uncle->color = BLACK;
+	grandparent->color = RED;
+
+	// move upward
+	current = grandparent;
+	//fixDelete(grandparent);
+      }
+
+      
+      else{
+	if(current == parent->right){
+	  //rotate parent left
+	  rotateLeft(parent);
+
+	  //move current up
+	  current ==parent;
+	  //updata parent
+	  parent = current->parent;
+	}
+	//left-left case
+	rotateRight(grandparent);
+
+	parent->color = BLACK;
+	grandparent->color = RED;
+	//rotate grandparent right
+	rotateRight(grandparent);
+      }
+    }
+    else{
+      Node* uncle = grandparent->left;
+
+      if(uncle != NULL && uncle->color == RED){
+	parent->color = BLACK;
+	uncle->color = BLACK;
+	grandparent->color = RED;
+	//move up
+	current = grandparent;
+	//fixDelete(grandparent);
+      }
+      else{
+	if(current == parent->left){
+	  //rotate parent right
+	  rotateRight(parent);
+	  //move up
+	  current = parent;
+	  //update parent
+	  parent = current->parent;
+	}
+	
+	parent->color = BLACK;
+	grandparent->color = RED;
+	//rotate grandparent Left
+	rotateLeft(grandparent);
+      }
+    }
+  }
+  // root always black
+  if(root != NULL){
+    root->color = BLACK;
+  }
+}
+
 // add node
 void redBlackTree::add(int data){
   //making new node
@@ -399,6 +493,11 @@ void redBlackTree::remove(int value){
     //keep original color
     successor->color = deleting->color;
   }
+  //fix tree after delete
+  if(root != NULL){
+    fixDelete(root);
+  }
+  
   delete deleting;
 
   //root is black
