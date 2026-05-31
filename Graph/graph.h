@@ -12,7 +12,7 @@ class graph{
   const int MAX = 20;
 
   //stores vertex labels
-  char vertices[MAX];
+  char vertices[MAX][20];
 
   //adjacency table
   int adj[MAX][MAX];
