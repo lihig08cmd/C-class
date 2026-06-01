@@ -143,7 +143,7 @@ void graph::printGraph(){
   for(int i=0; i<vertexCount; i++){
     cout << vertices[i] << " ";
     for(int j=0; j <vertexCount; j++){
-      cout << "  " << adj[i][j];
+      cout << " " << adj[i][j];
     }
     cout << endl;
   }
@@ -152,6 +152,98 @@ void graph::printGraph(){
 
 //uses Dijksta's algorithem to find shortest path
 void graph::shortestPath(){
+  char start[20];
+  char end[20];
 
+  cout <<"Enter staring vertex: " << endl;
+  cin >>start;
 
+  cout <<"Enter ending vertex: " << endl;
+  cin >>end;
+
+  int startIndex = findVertex(start);
+  int endIndex = findVertex(end);
+
+  if(startIndex == -1 || endIndex == -1){
+    cout << "Vertex not found" << endl;
+    return;
+  }
+
+  //distance array
+  int dist[MAX];
+  bool visited[MAX];
+  int prev[MAX];
+
+  //initialize arrays
+  for(int i=0; i<vertexCount; i++){
+    dist[i] = INT_MAX;
+    visited[i] = false;
+    prev[i]=-1;
+  }
+
+  //distance to self is 0
+  dist[startIndex] = 0;
+
+  //main Dijktra loop
+  for(int count = 0; count <vertexCount-1; count++){
+    int smallest = INT_MAX;
+    int current = -1;
+
+    //find closest unvisited vertex
+    for(int i=0; i<vertexCount; i++){
+      if(!visited[i] && dist[i] < smallest){
+	smallest = dist[i];
+	current = i;
+      }
+    }
+
+    //no reachable vertex
+    if(current == -1){
+      break;
+    }
+
+    visited[current] = true;
+
+    //check neighbors
+    for(int neighbor=0; neighbor<vertexCount; neighbor++){
+      //edge exists
+      if(adj[current][neighbor] > 0){
+	int newDist = dist[current]+adj[current][neighbor];
+
+	//shorter path found
+	if(newDist < dist[neighbor]){
+	  dist[neighbor] = newDist;
+	  prev[neighbor] = current;
+	}
+      }
+    }
+  }
+
+  //no path exists
+  if(dist[endIndex] == INT_MAX){
+    cout << "No path exists" << endl;
+    return;
+  }
+  //rebuilding path
+  int path[MAX];
+  int pathSize = 0;
+
+  int current = endIndex;
+  while(current != -1){
+    path[pathSize] = current;
+    pathSize++;
+    current = prev[current];
+  }
+
+  //print path backwords
+  cout << "Shortest Path: ";
+  for(int i= pathSize-1; i>=0; i--){
+    cout << vertices[path[i]];
+    if(i>0){
+      cout << " -> ";
+    }
+  }
+  cout << endl;
+
+  cout << "Total weight: " << dist[endIndex]<<endl;
 }

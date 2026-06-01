@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <climits>
 using namespace std;
 
 class graph{

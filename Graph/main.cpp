@@ -32,7 +32,7 @@ int main(){
       graph.removeEdge();
     }
     else if(strcmp(command, "FSP")==0){
-      //graph.shortestPath();
+      graph.shortestPath();
     }
     else if(strcmp(command, "P")==0){
       graph.printGraph();
