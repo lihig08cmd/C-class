@@ -9,7 +9,7 @@ using namespace std;
 class graph{
  private:
   // max amount of vertices
-  const int MAX = 20;
+  static const int MAX = 20;
 
   //stores vertex labels
   char vertices[MAX][20];
